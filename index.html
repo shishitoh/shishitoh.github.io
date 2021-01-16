@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ゼノブレイドクロス　エネミーダメージ計算</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" async></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>ゼノブレイドクロス　エネミーダメージ計算</h1>
+      <div id="csstest">
+        <h2>CSS<br>完全に理解した</h2>
+      </div>
+      <p>ダメージ計算式については
+        <a href="https://docs.google.com/spreadsheets/d/10HTotQgSglm12FtcArvARXYsW0q3vJiz9IN5__AtfMA/edit#gid=1752157701" target="_brank">こちら</a>
+      を見ること</p>
+    </header>
+    <div id="form-result">
+      <form>
+        <div>
+          <table class="enemy-form">
+            <caption>エネミー</caption>
+            <tr>
+              <th scope="col">レベル</th>
+              <th scope="col" class="melee">格闘力</th>
+              <th scope="col" class="ranged">射撃力</th>
+              <th scope="col" class="potential">潜在力</th>
+            </tr>
+            <tr>
+              <td class="has-tel"><input type="tel" id="enemy-level" size="2" maxlength="3" value="1"></td>
+              <td class="melee has-tel"><input type="tel" id="melee" size="3" maxlength="5" value="0"></td>
+              <td class="ranged has-tel"><input type="tel" id="langed" size="3" maxlength="5" value="0"></td>
+              <td class="potential has-tel"><input type="tel" id="potential" size="3" maxlength="5" value="0"></td>
+            </tr>
+          </table>
+
+          <table class="player-form">
+            <caption>プレイヤー</caption>
+            <tr>
+              <td></td>
+              <td></td>
+              <th scope="colgroup" colspan="6">属性耐性値</th>
+            </tr>
+            <tr>
+              <th scope="col">レベル</th>
+              <th scope="col">防御力<br>・装甲力</th>
+              <th scope="col">物理</th>
+              <th scope="col">ビーム</th>
+              <th scope="col">エーテル</th>
+              <th scope="col">ボルト</th>
+              <th scope="col">ヒート</th>
+              <th scope="col">重力</th>
+            </tr>
+            <tr>
+              <td class="has-tel"><input type="tel" id="player-level" size="2" maxlength="2" value="1"></td>
+              <td class="has-tel"><input type="tel" id="defense" size="3" maxlength="5" value="0"></td>
+              <td class="has-tel"><input type="tel" id="resistance-phisics" size="2" maxlength="3" value="0"></td>
+              <td class="has-tel"><input type="tel" id="resistance-beam" size="2" maxlength="3" value="0"></td>
+              <td class="has-tel"><input type="tel" id="resistance-ether" size="2" maxlength="3" value="0"></td>
+              <td class="has-tel"><input type="tel" id="resistance-bolt" size="2" maxlength="3" value="0"></td>
+              <td class="has-tel"><input type="tel" id="resistance-heat" size="2" maxlength="3" value="0"></td>
+              <td class="has-tel"><input type="tel" id="resistance-gravity" size="2" maxlength="3" value="0"></td>
+            </tr>
+          </table>
+
+          <table class="art-form">
+            <caption>アーツ</caption>
+            <tr>
+              <th scope="col">○○力</th>
+              <th scope="col">属性</th>
+              <th scope="col">ダメージ<br>倍率</th>
+              <th scope="col">防御<br>倍率</th>
+            </tr>
+            <tr>
+              <td>
+                <select id="attack-type">
+                  <option value="melee">格闘力</option>
+                  <option value="ranged">射撃力</option>
+                  <option value="potential">潜在力</option>
+                </select>
+              </td>
+              <td>
+                <select id="attribute-resistance-type">
+                  <option value="phisics">物理</option>
+                  <option value="beam">ビーム</option>
+                  <option value="ether">エーテル</option>
+                  <option value="bolt">ボルト</option>
+                  <option value="heat">ヒート</option>
+                  <option value="gravity">重力</option>
+                </select>
+              </td>
+              <td class="has-tel"><input type="tel" id="damage-scaling" size="5" maxlength="7" value="100">%</td>
+              <td class="has-tel"><input type="tel" id="defense-scaling" size="5" maxlength="7" value="100">%</td>
+            </tr>
+          </table>
+
+          <table class="attack-buff-form">
+            <caption>○○力アップ枠</caption>
+            <tr>
+              <th scope="col" class="basis">基礎値</th>
+              <th scope="col">アップ</th>
+              <th scope="col">ダウン</th>
+              <th class="melee" scope="col">パワーダウン<br>(格闘)</th>
+              <th class="ranged" scope="col">プラックサイト<br>(射撃)</th>
+              <th scope="col">その他1</th>
+              <th scope="col">その他2</th>
+              <th scope="col" class="total">合計</th>
+            </tr>
+            <tr>
+              <td>100%</td>
+              <td>
+                <select id="attack-buff">
+                  <option value="0">-</option>
+                  <option value="0">Ⅰ(+?%)</option>
+                  <option value="0">Ⅱ(+?%)</option>
+                  <option value="0">Ⅲ(+?%)</option>
+                  <option value="0">Ⅳ(+?%)</option>
+                  <option value="0">Ⅴ(+?%)</option>
+                  <option value="0">Ⅵ(+?%)</option>
+                </select>
+              </td>
+              <td>
+                <select id="attack-debuff">
+                  <option value="0">-</option>
+                  <option value="0">Ⅰ(-?%)</option>
+                  <option value="0">Ⅱ(-?%)</option>
+                  <option value="0">Ⅲ(-?%)</option>
+                  <option value="0">Ⅳ(-?%)</option>
+                  <option value="0">Ⅴ(-?%)</option>
+                  <option value="0">Ⅵ(-?%)</option>
+                </select>
+              </td>
+              <td class="melee">
+                <select id="power-down">
+                  <option value="0">-</option>
+                  <option value="0">Ⅰ(-?%)</option>
+                  <option value="0">Ⅱ(-?%)</option>
+                  <option value="0">Ⅲ(-?%)</option>
+                  <option value="0">Ⅳ(-?%)</option>
+                  <option value="-35">Ⅴ(-35%)</option>
+                  <option value="-50">Ⅵ(-50%)</option>
+                </select>
+              </td>
+              <td class="ranged">
+                <select id="black-site">
+                  <option value="0">-</option>
+                  <option value="0">Ⅰ(-?%)</option>
+                  <option value="0">Ⅱ(-?%)</option>
+                  <option value="-12">Ⅲ(-12%)</option>
+                  <option value="-14">Ⅳ(-14%)</option>
+                  <option value="0">Ⅴ(-?%)</option>
+                  <option value="0">Ⅵ(-?%)</option>
+                </select>
+              </td>
+              <td class="has-tel">+<input type="tel" id="attack-buff-other1" size="3" maxlength="4" value="0">%</td>
+              <td class="has-tel">+<input type="tel" id="attack-buff-other2" size="3" maxlength="4" value="0">%</td>
+              <td class="total" id="attack-buff-total"></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="result">
+          <table class="base-damage-result">
+            <caption>途中計算結果</caption>
+            <tr>
+              <th scope="col">基礎<br>○○力</th>
+              <th scope="col">○○力<br>アップ枠</th>
+              <th scope="col">最終<br>○○力</th>
+              <th scope="col">アーツ<br>倍率</th>
+              <th scope="col">基準<br>ダメージ</th>
+              <td></td>
+              <th scope="col">基礎<br>防御力</th>
+              <th scope="col">防御<br>倍率</th>
+              <th scope="col">基準<br>防御力</th>
+              <td></td>
+              <th scope="col">基礎ダメージ<br>(基準ダメージ - 基準防御力)</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+      </form>
+
+      <form>
+        <div>
+          <table class="additive-multipliers">
+            <caption>会心枠</caption>
+            <tr>
+              <th scope="col" class="basis">基礎値</th>
+              <th scope="col">会心</th>
+              <th scope="col">ドール<br>ディフェンス</th>
+              <th scope="col">その他1</th>
+              <th scope="col">その他2</th>
+              <th scope="col">その他3</th>
+              <th scope="col" class="total">合計</th>
+            </tr>
+            <tr>
+              <td>100%</td>
+              <td>
+                <input type="checkbox" id="critical" value="25">
+                <label for="critical">(+25%)</label>
+              </td>
+              <td>
+                <select id="skell-defense">
+                  <option value="0">-</option>
+                  <option value="-20">一人(-20%)</option>
+                  <option value="-40">二人(-40%)</option>
+                  <option value="-60">三人(-60%)</option>
+                </select>
+              </td>
+              <td class="has-tel">+<input type="tel" id="additive-multipliers-other1" size="3" maxlength="4" value="0">%</td>
+              <td class="has-tel">+<input type="tel" id="additive-multipliers-other2" size="3" maxlength="4" value="0">%</td>
+              <td class="has-tel">+<input type="tel" id="additive-multipliers-other3" size="3" maxlength="4" value="0">%</td>
+              <td class="total"></td>
+            </tr>
+          </table>
+
+          <table class="aura-form">
+            <caption>オーラ枠</caption>
+            <tr>
+              <th scope="col" class="basis">基礎値</th>
+              <th scope="col">アグレッシブ<br>モード</th>
+              <th scope="col">プロテクション<br>モード</th>
+              <th scope="col">ストロング<br>シールド</th>
+              <th scope="col">ランドバンク<br>サポート</th>
+              <th scope="col">その他</th>
+              <th scope="col" class="total">合計</th>
+            </tr>
+            <tr>
+              <td>100%</td>
+              <td>
+                <select id="offensive-stance">
+                  <option value="0">-</option>
+                  <option value="50">Ⅰ(+50%)</option>
+                  <option value="40">Ⅱ(+40%)</option>
+                  <option value="30">Ⅲ(+30%)</option>
+                  <option value="20">Ⅳ(+20%)</option>
+                  <option value="10">Ⅴ(+10%)</option>
+                  <option value="0">Ⅵ(+0%)</option>
+                </select>
+              </td>
+              <td>
+                <select id="defensive-stance">
+                  <option value="0">-</option>
+                  <option value="0">Ⅰ(-?%)</option>
+                  <option value="0">Ⅱ(-?%)</option>
+                  <option value="0">Ⅲ(-?%)</option>
+                  <option value="0">Ⅳ(-?%)</option>
+                  <option value="-40">Ⅴ(-40%)</option>
+                  <option value="-50">Ⅵ(-50%)</option>
+                </select>
+              </td>
+              <td>
+                <select id="strong-shield">
+                  <option value="0">-</option>
+                  <option value="0">Ⅰ(-?%)</option>
+                  <option value="0">Ⅱ(-?%)</option>
+                  <option value="0">Ⅲ(-?%)</option>
+                  <option value="0">Ⅳ(-?%)</option>
+                  <option value="-40">Ⅴ(-40%)</option>
+                  <option value="-50">Ⅵ(-50%)</option>
+                </select>
+              </td>
+              <td>
+                <select id="landbank-support">
+                  <option value="0">-</option>
+                  <option value="-20">Ⅴ(-20%)</option>
+                  <option value="-30">Ⅵ(-30%)</option>
+                </select>
+              </td>
+              <td class="has-tel">+<input type="tel" id="aura-other" size="3" maxlength="4" value="0">%</td>
+              <td class="total"></td>
+            </tr>
+          </table>
+
+          <table class="attribute-resistance-buff-form">
+            <caption>属性耐性枠</caption>
+            <tr>
+              <th scope="col" class="basis">基礎属性<br>耐性値</th>
+              <th scope="col">耐性アップ</th>
+              <th scope="col">耐性ダウン</th>
+              <th scope="col">オーラ効果</th>
+              <th scope="col">その他1</th>
+              <th scope="col">その他2</th>
+              <th scope="col">その他3</th>
+              <th scope="col" class="total">合計</th>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>
+                <select id="resistance-buff">
+                  <option value="0">-</option>
+                  <option value="20">Ⅰ(+20)</option>
+                  <option value="24">Ⅱ(+24)</option>
+                  <option value="28">Ⅲ(+28)</option>
+                  <option value="32">Ⅳ(+32)</option>
+                  <option value="36">Ⅴ(+36)</option>
+                  <option value="50">Ⅵ(+50)</option>
+                </select>
+              </td>
+              <td>
+                <select id="resistance-debuff">
+                  <option value="0">-</option>
+                  <option value="0">Ⅰ(-?)</option>
+                  <option value="0">Ⅱ(-?)</option>
+                  <option value="0">Ⅲ(-?)</option>
+                  <option value="0">Ⅳ(-?)</option>
+                  <option value="0">Ⅴ(-?)</option>
+                  <option value="0">Ⅵ(-?)</option>
+                </select>
+              </td>
+              <td>
+                <select id="resistance-aura">
+                  <option value="0">-</option>
+                  <option value="0">Ⅰ(+?)</option>
+                  <option value="0">Ⅱ(+?)</option>
+                  <option value="0">Ⅲ(+?)</option>
+                  <option value="0">Ⅳ(+?)</option>
+                  <option value="35">Ⅴ(+35)</option>
+                  <option value="50">Ⅵ(+50)</option>
+                </select>
+              </td>
+              <td class="has-tel">+<input type="tel" id="resistance-other1" size="3" maxlength="4" value="0"></td>
+              <td class="has-tel">+<input type="tel" id="resistance-other2" size="3" maxlength="4" value="0"></td>
+              <td class="has-tel">+<input type="tel" id="resistance-other3" size="3" maxlength="4" value="0"></td>
+              <td class="total"></td>
+            </tr>
+          </table>
+
+          <table class="independent-form">
+            <caption>独立枠</caption>
+            <tr>
+              <th scope="col">その1</th>
+              <th scope="col">その2</th>
+              <th scope="col">その3</th>
+              <th scope="col">その4</th>
+              <th scope="col">その5</th>
+              <th scope="col">その6</th>
+              <th scope="col" class="total">合計</th>
+            </tr>
+            <tr>
+              <td class="has-tel"><input type="tel" id="independent1" size="3" maxlength="4" value="100">%</td>
+              <td class="has-tel"><input type="tel" id="independent2" size="3" maxlength="4" value="100">%</td>
+              <td class="has-tel"><input type="tel" id="independent3" size="3" maxlength="4" value="100">%</td>
+              <td class="has-tel"><input type="tel" id="independent4" size="3" maxlength="4" value="100">%</td>
+              <td class="has-tel"><input type="tel" id="independent5" size="3" maxlength="4" value="100">%</td>
+              <td class="has-tel"><input type="tel" id="independent6" size="3" maxlength="4" value="100">%</td>
+              <td class="total"></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="result">
+          <table class="calculation-result">
+            <caption>最終計算結果</caption>
+            <tr>
+              <th scope="col">基礎ダメージ</th>
+              <th scope="col">会心枠</th>
+              <th scope="col">オーラ枠</th>
+              <th scope="col">属性耐性値</th>
+              <th svope="col">レベル補正</th>
+              <th scope="col">独立枠</th>
+              <th>&nbsp;</th>
+              <th scope="col">最終ダメージ<br>(最小)</th>
+              <th scope="col">最終ダメージ<br>(期待値)</th>
+              <th scope="col">最終ダメージ<br>(最大)</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

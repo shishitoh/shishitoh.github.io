@@ -1,0 +1,146 @@
+@media (max-width: 839px) {
+  html {
+    width: 100vw;
+    font-size: 1.5vw;
+  }
+}
+
+@media (min-width: 840px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+h1 {
+  font-size: 3rem;
+  width: 100vw;
+  padding: 10px
+}
+
+p {
+  cursor: pointer;
+}
+
+#csstest {
+  all: initial;
+  display: inline-flex;
+  border: 2px solid;
+  border-radius: 20px;
+}
+
+h2 {
+  color: black;
+  margin-left: 30px;
+  margin-right: -30px;
+}
+
+@media (max-width: 1079px) {
+  #form-result {
+    width: max-content;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  form {
+    display: block;
+  }
+
+  select {
+    font-size: inherit;
+    width: 5rem;
+  }
+}
+
+@media (min-width: 1080px) {
+  #form-result {
+    display: flex;
+  }
+
+  table {
+    max-width: 100%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  form div:first-child {
+    flex: 1;
+  }
+}
+
+form {
+  margin: 0.8rem;
+}
+
+div {
+  margin-bottom: 3.5rem;
+}
+
+table {
+  margin: 0.8rem 0rem;
+  border: 1px solid #aaaaaa;
+}
+
+caption {
+  font-size: 1.4rem;
+  color: #eef;
+  background-image: linear-gradient(30deg, #222228 0%, 40%, #ccccd0 50%, #ffffff 80%);
+  padding: 1px;
+  text-align: left;
+}
+
+td,
+th {
+  text-align: center;
+  box-sizing: border-box;
+  height: 2rem;
+  border: 0.125rem solid #777777;
+  border-bottom: 0.125rem solid #cccccc;
+  border-right: 0.125rem solid #cccccc;
+}
+
+input {
+  vertical-align: middle;
+}
+
+/*
+th[scope="col"] {
+  background-color: #eeeeee;
+}
+*/
+
+.basis {
+  background-color: #ffa500;
+}
+
+th {
+  background-color: #eeeeee;
+}
+
+th.melee,
+td.melee {
+  background-color: #fcdbdc;
+}
+
+th.ranged,
+td.ranged {
+  background-color: #d3d9ff;
+}
+
+th.potential,
+td.potential {
+  background-color: #fbffda;
+}
+
+.total {
+  background-color: #f87aad;
+  width: 3rem;
+}
+
+.has-tel {
+  background-color: #00cccc;
+}

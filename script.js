@@ -4,7 +4,7 @@ const ranged = document.querySelector("#ranged");
 const potential = document.querySelector("#potential");
 
 const player_level = document.querySelector("#player-level");
-const defence = document.querySelector("#defence");
+const defense = document.querySelector("#defense");
 const resistance_phisics = document.querySelector("#resistance-phisics");
 const resistance_beam = document.querySelector("#resistance-beam");
 const resistance_ether = document.querySelector("#resistance-ether");
@@ -15,7 +15,7 @@ const resistance_gravity = document.querySelector("#resistance-gravity");
 const attack_type = document.querySelector("#attack-type");
 const resistance_type = document.querySelector("#resistance-type");
 const damage_scaling = document.querySelector("#damage-scaling");
-const defence_scaling = document.querySelector("#defence-scaling");
+const defense_scaling = document.querySelector("#defense-scaling");
 
 const attack_buff = document.querySelector("#attack-buff");
 const attack_debuff = document.querySelector("#attack-debuff");
@@ -26,14 +26,14 @@ const attack_buff_other2 = document.querySelector("#attack-buff-other2");
 const attack_buff_total = document.querySelector("#attack-buff-total");
 
 const critical = document.querySelector("#critical");
-const skell_defence = document.querySelector("#skell-defence");
+const skell_defense = document.querySelector("#skell-defense");
 const additive_multipliers_other1 = document.querySelector("#additive-multipliers-other1");
 const additive_multipliers_other2 = document.querySelector("#additive-multipliers-other2");
 const additive_multipliers_other3 = document.querySelector("#additive-multipliers-other3");
 const additive_multipliers_total = document.querySelector("#additive-multipliers-total");
 
 const offensive_stance = document.querySelector("#offensive-stance");
-const defensive_stance = document.querySelector("#defensice-stance");
+const defensive_stance = document.querySelector("#defensive-stance");
 const strong_shield = document.querySelector("#strong-shield");
 const landbank_support = document.querySelector("#landbank-support");
 const aura_other = document.querySelector("#aura-other");
@@ -66,15 +66,15 @@ const result1_7 = document.querySelector("#result1-7");
 const result1_8 = document.querySelector("#result1-8");
 const result1_9 = document.querySelector("#result1-9");
 
-const result2_1 = doqument.querySelector("#result2-1");
-const result2_2 = doqument.querySelector("#result2-2");
-const result2_3 = doqument.querySelector("#result2-3");
-const result2_4 = doqument.querySelector("#result2-4");
-const result2_5 = doqument.querySelector("#result2-5");
-const result2_6 = doqument.querySelector("#result2-6");
-const result2_7 = doqument.querySelector("#result2-7");
-const result2_8 = doqument.querySelector("#result2-8");
-const result2_9 = doqument.querySelector("#result2-9");
+const result2_1 = document.querySelector("#result2-1");
+const result2_2 = document.querySelector("#result2-2");
+const result2_3 = document.querySelector("#result2-3");
+const result2_4 = document.querySelector("#result2-4");
+const result2_5 = document.querySelector("#result2-5");
+const result2_6 = document.querySelector("#result2-6");
+const result2_7 = document.querySelector("#result2-7");
+const result2_8 = document.querySelector("#result2-8");
+const result2_9 = document.querySelector("#result2-9");
 
 
 function ValidationCheck (tag) {
@@ -84,13 +84,13 @@ function ValidationCheck (tag) {
 };
 
 function set_damage_scaling() {
-  result1_4.textContent = damage_scaling.value;
+  result1_4.textContent = damage_scaling.value + "%";
   return Number(damage_scaling.value);
 };
 
-function set_defence_scaling() {
-  result1_7.textContent = defence_scaling.value;
-  return Number(defence_scaling.value);
+function set_defense_scaling() {
+  result1_7.textContent = defense_scaling.value + "%";
+  return Number(defense_scaling.value);
 };
 
 function calc_attack_type() {
@@ -148,7 +148,7 @@ function calc_additive_multiplier_total() {
   var total = (
     100 +
     (critical.checked ? 25 : 0) +
-    Number(skell_defence.value) +
+    Number(skell_defense.value) +
     Number(additive_multipliers_other1.value) +
     Number(additive_multipliers_other2.value) +
     Number(additive_multipliers_other3.value)
@@ -182,13 +182,13 @@ function calc_resistance_total() {
     Number(resistance_other2.value) +
     Number(resistance_other3.value)
   );
-  resistance_total.textContent = String(total) + "%";
-  result2_4.textContent = String(total) + "%";
+  resistance_total.textContent = String(total);
+  result2_4.textContent = String(total);
   return total;
 };
 
 function calc_level_difference() {
-  var difference = 100 + 12 * max(min(60, Number(enemy_level.value)) - min(60, Number(player_level.value)), 0);
+  var difference = 100 + 12 * Math.max(Math.min(60, Number(enemy_level.value)) - Math.min(60, Number(player_level.value)), 0);
   result2_5.textContent = String(difference) + "%";
   return difference;
 }
@@ -214,7 +214,7 @@ function main() {
   ValidationCheck(ranged);
   ValidationCheck(potential);
   ValidationCheck(player_level);
-  ValidationCheck(defence);
+  ValidationCheck(defense);
   ValidationCheck(resistance_phisics);
   ValidationCheck(resistance_beam);
   ValidationCheck(resistance_ether);
@@ -222,7 +222,7 @@ function main() {
   ValidationCheck(resistance_heat);
   ValidationCheck(resistance_gravity);
   ValidationCheck(damage_scaling);
-  ValidationCheck(defence_scaling);
+  ValidationCheck(defense_scaling);
   ValidationCheck(attack_buff_other1);
   ValidationCheck(attack_buff_other2);
   ValidationCheck(additive_multipliers_other1);
@@ -240,9 +240,9 @@ function main() {
   ValidationCheck(independent6);
 
   var damage_scaling_n = set_damage_scaling();
-  var defence_scaling_n = set_defence_scaling();
+  var defense_scaling_n = set_defense_scaling();
   var power_n = calc_attack_type();
-  var defence_n = Number(defence.value);
+  var defense_n = Number(defense.value);
   var attack_buff_total_n = calc_attackbuff_total();
   var additive_multipliers_total_n = calc_additive_multiplier_total();
   var aura_total_n = calc_aura_total();
@@ -254,10 +254,12 @@ function main() {
   result1_3.textContent = String(Math.floor(result1_3_n));
   var result1_5_n = result1_3_n * (damage_scaling_n / 100);
   result1_5.textContent = String(Math.floor(result1_5_n));
-  var result1_8_n = defence_n * (defence_scaling_n / 100);
+  result1_6.textContent = String(Math.floor(defense_n));
+  var result1_8_n = defense_n * (defense_scaling_n / 100);
   result1_8.textContent = String(Math.floor(result1_8_n));
   var result1_9_n = result1_5_n - result1_8_n;
   result1_9.textContent = String(Math.floor(result1_9_n));
+  result2_1.textContent = String(Math.floor(result1_9_n));
 
   var final_result = (
     result1_9_n *
@@ -267,11 +269,17 @@ function main() {
     (level_difference_n / 100) *
     (independent_total_n / 100)
   );
-  final_result = max(1, final_result);
+  final_result = Math.max(1, final_result);
   result2_7.textContent = Math.floor(final_result);
   result2_8.textContent = Math.floor(final_result * 1.025);
   result2_9.textContent = Math.floor(final_result * 1.05);
 };
 
-document.querySelector("input[type='tel']").addEventListener("focusout", main);
-document.querySelector("select").addEventListener("change", main);
+var inputs = document.querySelectorAll("input[type='tel']");
+var selects = document.querySelectorAll("select")
+for (var i = 0; i < inputs.length; i++) {
+  inputs[i].addEventListener("focusout", main);
+};
+for (var i = 0; i < selects.length; i++) {
+  selects[i].addEventListener("change", main);
+};

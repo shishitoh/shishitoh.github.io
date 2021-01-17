@@ -1,7 +1,6 @@
 @media (max-width: 839px) {
   html {
-    width: 100vw;
-    font-size: 1.5vw;
+    font-size: 1.25vw;
   }
 }
 
@@ -12,13 +11,14 @@
 }
 
 h1 {
-  font-size: 3rem;
-  width: 100vw;
-  padding: 10px
+  font-weight: lighter;
+  font-size: 2rem;
+  padding: 10px;
+  margin: 0px;
 }
 
-p {
-  cursor: pointer;
+header > p {
+  width: 34rem;
 }
 
 #csstest {
@@ -34,13 +34,13 @@ h2 {
   margin-right: -30px;
 }
 
-@media (max-width: 1079px) {
+@media (max-width: 999px) {
   #form-result {
     width: max-content;
   }
 
   table {
-    width: 100%;
+    min-width: 50%;
   }
 
   form {
@@ -53,13 +53,14 @@ h2 {
   }
 }
 
-@media (min-width: 1080px) {
+@media (min-width: 1000px) {
   #form-result {
     display: flex;
+    max-width: 1280px;
   }
 
   table {
-    max-width: 100%;
+    min-width: 70%;
   }
 
   form {
@@ -74,6 +75,8 @@ h2 {
 
 form {
   margin: 0.8rem;
+  margin-right: 1.25rem;
+  margin-left: 0;
 }
 
 div {
@@ -82,43 +85,49 @@ div {
 
 table {
   margin: 0.8rem 0rem;
-  border: 1px solid #aaaaaa;
+  border: 0.125rem solid #aaaaaa;
 }
 
 caption {
-  font-size: 1.4rem;
-  color: #eef;
-  background-image: linear-gradient(30deg, #222228 0%, 40%, #ccccd0 50%, #ffffff 80%);
-  padding: 1px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  /*color: #eef;
+  background-image: linear-gradient(30deg, #222228 0%, 40%, #ccccd0 50%, #ffffff 80%);*/
+  background-color: #ddefff;
+  padding: 0.1rem;
+  padding-left: 0.4rem;
+  border: 0.125rem solid #777777;
+  border-bottom: 0.125rem solid #cccccc;
+  border-right: 0.125rem solid #cccccc;
   text-align: left;
+}
+
+caption.result {
+  background-color: #ffadaa;
 }
 
 td,
 th {
   text-align: center;
   box-sizing: border-box;
-  height: 2rem;
+  min-width: 2rem;
+  height: 2.5rem;
   border: 0.125rem solid #777777;
   border-bottom: 0.125rem solid #cccccc;
   border-right: 0.125rem solid #cccccc;
 }
 
 input {
+  font-size: 1rem;
   vertical-align: middle;
 }
 
-/*
 th[scope="col"] {
   background-color: #eeeeee;
 }
-*/
 
 .basis {
-  background-color: #ffa500;
-}
-
-th {
-  background-color: #eeeeee;
+  background-color: #ffa500 !important;
 }
 
 th.melee,
@@ -137,7 +146,7 @@ td.potential {
 }
 
 .total {
-  background-color: #f87aad;
+  background-color: #f87aad !important;
   width: 3rem;
 }
 

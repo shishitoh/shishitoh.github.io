@@ -21,19 +21,6 @@ header > p {
   width: 34rem;
 }
 
-#csstest {
-  all: initial;
-  display: inline-flex;
-  border: 2px solid;
-  border-radius: 20px;
-}
-
-h2 {
-  color: black;
-  margin-left: 30px;
-  margin-right: -30px;
-}
-
 @media (max-width: 999px) {
   #form-result {
     width: max-content;

@@ -276,10 +276,12 @@ function main() {
 };
 
 var inputs = document.querySelectorAll("input[type='tel']");
-var selects = document.querySelectorAll("select, input[type='checkbox']")
+var selects = document.querySelectorAll("select")
+var checkbox = document.querySelector("input[type='checkbox']");
 for (var i = 0; i < inputs.length; i++) {
     inputs[i].addEventListener("focusout", main);
 };
 for (var i = 0; i < selects.length; i++) {
     selects[i].addEventListener("change", main);
 };
+checkbox.addEventListener("change", main);

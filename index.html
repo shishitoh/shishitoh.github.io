@@ -12,17 +12,16 @@
       <h1>ゼノブレイドクロス　エネミーダメージ計算</h1>
       <hr>
       <p>
+        このページを作るにあたって、インナーダメージ計算のページレイアウトを参考にさせていただきました。ありがとうございます。
+        <br>
         ダメージ計算式については
         <a href="https://docs.google.com/spreadsheets/d/10HTotQgSglm12FtcArvARXYsW0q3vJiz9IN5__AtfMA/edit#gid=1752157701" target="_brank">
           スプレッドシート
         </a>
         を参照してください。
-        計算式には未確認の要素（?%と表示されている箇所）が複数あり、そちらは分かり次第更新していきます。<br>
-        情報提供も歓迎しています。もし情報提供がある場合はスプレッドシートのコメントか
-        <a href="https://twitter.com/sclap_A">
-          twitter
-        </a>
-        からお願いします。
+        計算式には未確認の要素（?%と表示されている箇所）が複数あり、そちらは分かり次第更新していきます。
+        <br>
+        情報提供歓迎です。もし情報提供がある場合はスプレッドシートのコメントや、githubからお願いします。
       </p>
     </header>
     <div id="form-result">
@@ -42,9 +41,9 @@
               <td class="has-tel"><input type="tel" id="enemy-level" size="2" maxlength="3" value="1"></td>
               <td></td>
               <td></td>
-              <td class="melee has-tel"><input type="tel" id="melee" size="3" maxlength="5" value="0"></td>
-              <td class="ranged has-tel"><input type="tel" id="ranged" size="3" maxlength="5" value="0"></td>
-              <td class="potential has-tel"><input type="tel" id="potential" size="3" maxlength="5" value="0"></td>
+              <td class="melee has-tel"><input type="tel" id="melee" size="3" maxlength="5" value="1"></td>
+              <td class="ranged has-tel"><input type="tel" id="ranged" size="3" maxlength="5" value="1"></td>
+              <td class="potential has-tel"><input type="tel" id="potential" size="3" maxlength="5" value="1"></td>
             </tr>
           </table>
 
@@ -181,17 +180,17 @@
           <table class="base-damage-result">
             <caption class="result">途中計算結果</caption>
             <tr>
-              <th scope="col">基礎○○力</th>
+              <th class="basis" scope="col">基礎○○力</th>
               <th scope="col">○○力アップ枠</th>
               <th scope="col">最終○○力</th>
               <th scope="col">アーツ倍率</th>
               <th scope="col">基準ダメージ</th>
               <td></td>
-              <th scope="col">基礎防御力</th>
+              <th class="basis" scope="col">基礎防御力</th>
               <th scope="col">防御倍率</th>
               <th scope="col">基準防御力</th>
               <td></td>
-              <th scope="col">基礎ダメージ(基準ダメージ - 基準防御力)</th>
+              <th class="total" scope="col">基礎ダメージ(基準ダメージ - 基準防御力)</th>
             </tr>
             <tr>
               <td id="result1-1"></td>
@@ -383,16 +382,16 @@
           <table class="calculation-result">
             <caption class="result">最終計算結果</caption>
             <tr>
-              <th scope="col">基礎ダメージ</th>
+              <th class="basis" scope="col">基礎ダメージ</th>
               <th scope="col">会心枠</th>
               <th scope="col">オーラ枠</th>
               <th scope="col">属性耐性値</th>
-              <th svope="col">レベル補正</th>
+              <th scope="col">レベル補正</th>
               <th scope="col">独立枠</th>
               <th>&nbsp;</th>
-              <th scope="col">最終ダメージ(最小)</th>
-              <th scope="col">最終ダメージ(期待値)</th>
-              <th scope="col">最終ダメージ(最大)</th>
+              <th class="total" scope="col">最終ダメージ(最小)</th>
+              <th class="total" scope="col">最終ダメージ(期待値)</th>
+              <th class="total" scope="col">最終ダメージ(最大)</th>
             </tr>
             <tr>
               <td id="result2-1"></td>

@@ -50,6 +50,7 @@ h2 {
   select {
     font-size: inherit;
     width: 5rem;
+    height: fit-content;
   }
 }
 
@@ -110,7 +111,7 @@ td,
 th {
   text-align: center;
   box-sizing: border-box;
-  min-width: 2rem;
+  min-width: 3.5rem;
   height: 2.5rem;
   border: 0.125rem solid #777777;
   border-bottom: 0.125rem solid #cccccc;
@@ -147,7 +148,6 @@ td.potential {
 
 .total {
   background-color: #f87aad !important;
-  width: 3rem;
 }
 
 .has-tel {

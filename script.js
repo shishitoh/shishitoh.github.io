@@ -275,13 +275,7 @@ function main() {
     result2_9.textContent = Math.floor(final_result * 1.05);
 };
 
-var inputs = document.querySelectorAll("input[type='tel']");
-var selects = document.querySelectorAll("select")
-var checkbox = document.querySelector("input[type='checkbox']");
+var inputs = document.querySelectorAll("input, select");
 for (var i = 0; i < inputs.length; i++) {
-    inputs[i].addEventListener("focusout", main);
+    inputs[i].addEventListener("change", main);
 };
-for (var i = 0; i < selects.length; i++) {
-    selects[i].addEventListener("change", main);
-};
-checkbox.addEventListener("change", main);
